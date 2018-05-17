@@ -8,6 +8,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Cesar Guirao (Nitrillo)",
+  "author": "Ninad L",
   "license": "ISC"
 }
