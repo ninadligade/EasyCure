@@ -1,7 +1,7 @@
 {
   "name": "rtcapp-server",
   "version": "1.0.0",
-  "description": "Super simple server for WebRTC demo",
+  "description": "WebRTC demo",
   "main": "server.js",
   "dependencies": {},
   "devDependencies": {},
