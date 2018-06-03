@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
         audioManager.setSpeakerphoneOn(true);
 
+        // WebRTC is written in C++ so we need this call to access these properties using JAVA API. 
         PeerConnectionFactory.initializeAndroidGlobals(
                 this,  // Context
                 true,  // Audio Enabled
@@ -74,8 +75,13 @@ public class MainActivity extends AppCompatActivity {
 
         peerConnectionFactory = new PeerConnectionFactory();
 
+        // Using a Camera, using the front facing device name 
+        //Creating a video capturer
         VideoCapturerAndroid vc = VideoCapturerAndroid.create(VideoCapturerAndroid.getNameOfFrontFacingDevice(), null);
 
+        /*
+        We create a audio and video track and initiate a local stream
+        */
         localVideoSource = peerConnectionFactory.createVideoSource(vc, new MediaConstraints());
         VideoTrack localVideoTrack = peerConnectionFactory.createVideoTrack(VIDEO_TRACK_ID, localVideoSource);
         localVideoTrack.setEnabled(true);
@@ -84,10 +90,12 @@ public class MainActivity extends AppCompatActivity {
         AudioTrack localAudioTrack = peerConnectionFactory.createAudioTrack(AUDIO_TRACK_ID, audioSource);
         localAudioTrack.setEnabled(true);
 
+        `   
         localMediaStream = peerConnectionFactory.createLocalMediaStream(LOCAL_STREAM_ID);
         localMediaStream.addTrack(localVideoTrack);
         localMediaStream.addTrack(localAudioTrack);
 
+        // Renderer 
         GLSurfaceView videoView = (GLSurfaceView) findViewById(R.id.glview_call);
 
         VideoRendererGui.setView(videoView, null);
@@ -104,7 +112,10 @@ public class MainActivity extends AppCompatActivity {
         if (peerConnection != null)
             return;
 
+        // Creating Peer Connection 
         ArrayList<PeerConnection.IceServer> iceServers = new ArrayList<>();
+        // Add a stun server to the conection
+        // STUN servers are used for signalling 
         iceServers.add(new PeerConnection.IceServer("stun:stun.l.google.com:19302"));
 
         peerConnection = peerConnectionFactory.createPeerConnection(
