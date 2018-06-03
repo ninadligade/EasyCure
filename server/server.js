@@ -1,5 +1,6 @@
-var socketIO = require('socket.io');
-var server = require('http').createServer().listen(7000, '0.0.0.0');
+var socketIO = require('socket.io'); // Loads the external module called 'socket.io'
+var server = require('http').createServer().listen(7000, '0.0.0.0'); // Loads the external 
+//module called 'http', creates a server and listens on port number 7000
 var io = socketIO.listen(server);
 
 // Super simple server:
