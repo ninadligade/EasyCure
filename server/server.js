@@ -4,9 +4,7 @@ var server = require('http').createServer().listen(7000, '0.0.0.0'); // Loads th
 var io = socketIO.listen(server);
 
 // Super simple server:
-//  * One room only. 
-//  * We expect two people max. 
-//  * No error handling.
+// Currently works only for private internal networks under one router 
 
 io.sockets.on('connection', function (client) {
     console.log('new connection: ' + client.id);
